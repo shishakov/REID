@@ -2,6 +2,8 @@ package com.reid.REID
 
 import grails.plugin.springsecurity.annotation.Secured
 
+import java.security.MessageDigest
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -42,7 +44,15 @@ class FirmaController {
         def list = allLines.collect {it}
         def cl= list.size()
 
+
+
+
+
+
+
         for (int r = 0; r < cl; r++){
+            String rows =list[r][0]+list[r][1] + list[r][2] + list[r][3]
+            def rowsHash = MessageDigest.getInstance("MD5").digest(rows.bytes).encodeHex().toString()
             def firm = new Firma (
                     name_firm: list[r][0],
                     e_mail:list[r][1],
@@ -50,7 +60,7 @@ class FirmaController {
                     indexX: list[r][3],
                     lantitudeS: list[r][3],
                     longitudeD: list[r][3],
-                    hash_record: list[r][3])
+                    hash_record: rowsHash)
             def user = User.get(1)
             firm.user = user
             firm.save(flush: true)
