@@ -24,9 +24,12 @@ class Firma implements Serializable  {
         lantitudeS blank: false
         longitudeD blank: false
         hash_record blank: false
+        user nullable: true
     }
 
     static mapping = {
         cache true
     }
+
+
 }
