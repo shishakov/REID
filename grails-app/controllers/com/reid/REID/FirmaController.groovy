@@ -1,5 +1,7 @@
 package com.reid.REID
 
+
+import grails.plugin.geocode.Point
 import grails.plugin.springsecurity.annotation.Secured
 
 import java.security.MessageDigest
@@ -9,9 +11,12 @@ import grails.transaction.Transactional
 
 @Secured(['permitAll'])
 @Transactional(readOnly = true)
+
 class FirmaController {
 
     static scaffold = Firma
+
+    GeocodingService geocodingService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -35,37 +40,74 @@ class FirmaController {
     def upload() {
     }
 
+    def getHashCode(String str) {
+        def rowsHash = MessageDigest.getInstance("MD5").digest(str.bytes).encodeHex().toString()
+        return rowsHash
+    }
+
     @Transactional
-    def doUpload(Firma firmaInstance) {
+    def doUpload() {
         def file = request.getFile('file')
-
         def allLines = file.inputStream.toCsvReader().readAll()
-
-        def list = allLines.collect {it}
-        def cl= list.size()
-
-
-
-
-
-
-
-        for (int r = 0; r < cl; r++){
-            String rows =list[r][0]+list[r][1] + list[r][2] + list[r][3]
-            def rowsHash = MessageDigest.getInstance("MD5").digest(rows.bytes).encodeHex().toString()
-            def firm = new Firma (
-                    name_firm: list[r][0],
-                    e_mail:list[r][1],
-                    addressS: list[r][2],
-                    indexX: list[r][3],
-                    lantitudeS: list[r][3],
-                    longitudeD: list[r][3],
-                    hash_record: rowsHash)
-            def user = User.get(1)
-            firm.user = user
-            firm.save(flush: true)
+        def list = allLines.collect { it }
+        for (int r = 0; r < list.size(); r++) {
+            String rows = list[r][0] + list[r][1] + list[r][2] + list[r][3]
+            def firmDB = Firma.findByE_mail(list[r][1])
+            if (firmDB) {
+                String hashRows = firmDB.name_firm + firmDB.getE_mail() + firmDB.addressS + firmDB.indexX
+                def rowsHash = getHashCode(rows)
+                if (rowsHash != getHashCode(hashRows)) {
+                    List<Point> locations = geocodingService.getPoints(list[r][2])
+                    firmDB.name_firm = list[r][0]
+                    firmDB.addressS = list[r][2]
+                    firmDB.indexX = list[r][3]
+                    firmDB.lantitudeS = locations[0].getLatitude().toString()
+                    firmDB.longitudeD = locations[0].getLongitude().toString()
+                    firmDB.hash_record = rowsHash
+                    def user = User.get(1)
+                    firmDB.user = user
+                    firmDB.save(flush: true)
+                }
+            } else {
+                def rowsHash = getHashCode(rows)
+                List<Point> locations = geocodingService.getPoints(list[r][2])
+                def firm = new Firma(
+                        name_firm: list[r][0],
+                        e_mail: list[r][1],
+                        addressS: list[r][2],
+                        indexX: list[r][3],
+                        lantitudeS: locations[0].getLatitude().toString(),
+                        longitudeD: locations[0].getLongitude().toString(),
+                        hash_record: rowsHash)
+                def user = User.get(1)
+                firm.user = user
+                firm.save(flush: true)
+            }
         }
-        redirect (action:'list')
+
+        //GEO
+
+        //def validAddress = 'ulica Nekrasova 10, Minsk, Minsk Region, Belarus';
+
+//        List<Point> locations = geocodingService.getPoints(list[0][2])
+//        locations[0].latitude
+//        locations[0].longitude
+
+// return geo
+//        Point location = new Point(latitude: 53.931686, longitude: 27.595127)
+//        def results = geocodingService.getAddresses(location)
+//        println results.size() > 1
+//
+//        // limit the number of results returned
+//        def limit = 1
+//        results = service.getAddresses(location, [max: limit])
+//        assertEquals limit, results.size()
+
+        // request just a single address
+//        def address = geocodingService.getAddress(location)
+//        println address
+
+        redirect(action: 'list')
     }
 
     @Transactional
@@ -99,6 +141,7 @@ class FirmaController {
 
     @Transactional
     def update(Firma firmaInstance) {
+        println firmaInstance
         if (firmaInstance == null) {
             notFound()
             return

@@ -22,7 +22,10 @@ class BootStrap {
 //        def userRole = new Role (authority: 'ROLE_USER').save(flush: true)
 //        def adminRole = new Role (authority: 'ROLE_ADMIN').save(flush: true)
 //
-//        def firmOne = Firma.findOrSaveWhere(name_firm: 'name_firm', e_mail:'name_firm', addressS: 'name_firm', indexX: 'name_firm', lantitudeS: 'name_firm', longitudeD: 'name_firm', hash_record: 'name_firm', user_id:1).save(flush:true)
+        def firmOne = Firma.findOrSaveWhere(name_firm: 'name_firm', e_mail:'name_firm', addressS: 'name_firm', indexX: 'name_firm', lantitudeS: 'name_firm', longitudeD: 'name_firm', hash_record: 'name_firm')
+        firmOne.user = user
+        firmOne.save(flush: true)
+
 //        def firmTwo = new Firm (name_firm: 'name_fir', e_mail:'name_fir',
 //                addressS: 'name_fir', indexX: 'name_fir',
 ////                lantitudeS: 'name_fir', longitudeD: 'name_fir',

@@ -38,6 +38,10 @@
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/database-migration-1.4.0/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/database-migration-1.4.0/grails-app/controllers" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/target/work/plugins/geocode-0.3">
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/geocode-0.3/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/geocode-0.3/grails-app/services" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/target/work/plugins/h2-0.2.6">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/h2-0.2.6/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/h2-0.2.6/grails-app/i18n" isTestSource="false" />

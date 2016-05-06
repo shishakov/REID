@@ -24,6 +24,7 @@ grails.project.fork = [
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
+
     inherits("global") {
         // specify dependency exclusions here; for example, uncomment this to disable ehcache:
         // excludes 'ehcache'
@@ -68,6 +69,11 @@ grails.project.dependency.resolution = {
 
         // Grails CSV Plugin
         compile "org.grails.plugins:csv:0.3.1"
+
+        //Uses the Google maps web service to perform address geocoding and reverse geocoding
+        compile "org.grails.plugins:geocode:0.3"
+
+
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.16" // or ":hibernate4:4.3.5.4"
