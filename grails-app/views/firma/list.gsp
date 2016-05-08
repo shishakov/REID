@@ -35,10 +35,6 @@
 
             <g:sortableColumn property="indexX" title="${message(code: 'firma.indexX.label', default: 'Index X')}" />
 
-            <g:sortableColumn property="lantitudeS" title="${message(code: 'firma.lantitudeS.label', default: 'Lantitude S')}" />
-
-            <g:sortableColumn property="longitudeD" title="${message(code: 'firma.longitudeD.label', default: 'Longitude D')}" />
-
         </tr>
         </thead>
         <tbody>
@@ -52,10 +48,6 @@
                 <td>${fieldValue(bean: firmaInstance, field: "addressS")}</td>
 
                 <td>${fieldValue(bean: firmaInstance, field: "indexX")}</td>
-
-                <td>${fieldValue(bean: firmaInstance, field: "lantitudeS")}</td>
-
-                <td>${fieldValue(bean: firmaInstance, field: "longitudeD")}</td>
 
             </tr>
         </g:each>

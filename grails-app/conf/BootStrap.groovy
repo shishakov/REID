@@ -1,38 +1,21 @@
-import com.reid.REID.UserRole
-import com.reid.REID.User
-import com.reid.REID.Role
-import com.reid.REID.Firma
+import com.reid.REID.*
 
 class BootStrap {
 
     def init = { servletContext ->
 
-          def adminRole = Role.findOrSaveWhere(authority: 'ROLE_ADMIN')
-          def user = User.findOrSaveWhere(username: 'danvega@gmail.com', password: 'password')
+        def userRole = Role.findOrSaveWhere(authority: 'ROLE_USER')
+        def adminRole = Role.findOrSaveWhere(authority: 'ROLE_ADMIN')
 
-        def adminRole2 = Role.findOrSaveWhere(authority: 'ROLE_ADMIN')
-        def user2 = User.findOrSaveWhere(username: 'danvega5@gmail.com', password: 'password5')
+        def userUser = User.findOrSaveWhere(username: 'user', password: 'user', enabled: true)
+        def adminUser = User.findOrSaveWhere(username: 'admin', password: 'admin', enabled: true)
 
-        if ( !user.authorities.contains(adminRole)){
-            UserRole.create(user,adminRole,true)
-        }
-//        def user = new User (username: 'user', password: 'user').save(flush: true)
-//        def admin = new User (username: 'admin', password: 'admin').save(flush: true)
-//
-//        def userRole = new Role (authority: 'ROLE_USER').save(flush: true)
-//        def adminRole = new Role (authority: 'ROLE_ADMIN').save(flush: true)
-//
-        def firmOne = Firma.findOrSaveWhere(name_firm: 'name_firm', e_mail:'name_firm', addressS: 'name_firm', indexX: 'name_firm', lantitudeS: 'name_firm', longitudeD: 'name_firm', hash_record: 'name_firm')
-        firmOne.user = user
+        UserRole.create userUser, userRole
+        UserRole.create adminUser, adminRole
+
+        def firmOne = Firma.findOrSaveWhere(name_firm: 'WalmartR', e_mail:'walmart@gmail.comR', addressS: 'ул. Сосновый бор 6 Минск Беларусь', indexX: '220465', lantitudeS: '220465', longitudeD: '220465', hash_record: '220465')
+        firmOne.user = userUser
         firmOne.save(flush: true)
-
-//        def firmTwo = new Firm (name_firm: 'name_fir', e_mail:'name_fir',
-//                addressS: 'name_fir', indexX: 'name_fir',
-////                lantitudeS: 'name_fir', longitudeD: 'name_fir',
-////                hash_record: 'name_fir',) .save(flush:true)
-//
-//        new UserRole(user: user, role: UserRole).save(flush: true)
-//        new UserRole(user: admin, role: adminRole).save(flush: true)
     }
     def destroy = {
     }

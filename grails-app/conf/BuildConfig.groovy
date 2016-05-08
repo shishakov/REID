@@ -95,6 +95,7 @@ grails.project.dependency.resolution = {
         //compile ":handlebars-asset-pipeline:1.3.0.1"
 
         //Spring Security Core
-        compile ":spring-security-core:2.0.0"
+        compile ':spring-security-core:2.0-RC4'
+
     }
 }

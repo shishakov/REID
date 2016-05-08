@@ -9,7 +9,7 @@ import java.security.MessageDigest
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(['permitAll'])
+@Secured(['ROLE_USER'])
 @Transactional(readOnly = true)
 
 class FirmaController {

@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="REID:GrailsWeb exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/REID_GrailsWeb_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="REID/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="javaee-facet-classes" facet="REID/web/GrailsWeb" />
+          <element id="module-output" name="REID"/>
+          <element id="module-output" name="REID-grailsPlugins" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="REID/web/GrailsWeb" />
+    </root>
+  </artifact>
+</component>

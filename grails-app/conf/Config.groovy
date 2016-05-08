@@ -120,6 +120,9 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
+grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/dashboard'
+grails.plugin.springsecurity.logout.postOnly = false
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.reid.REID.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.reid.REID.UserRole'
@@ -127,13 +130,11 @@ grails.plugin.springsecurity.authority.className = 'com.reid.REID.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],
 	'/index':           ['permitAll'],
-    '/customer/list':   ['permitAll'],
 	'/index.gsp':       ['permitAll'],
 	'/assets/**':       ['permitAll'],
 	'/**/js/**':        ['permitAll'],
 	'/**/css/**':       ['permitAll'],
 	'/**/images/**':    ['permitAll'],
-	'/**/favicon.ico':  ['permitAll'],
-    '/dbconsole/**':    ['permitAll']
+	'/**/favicon.ico':  ['permitAll']
 ]
 

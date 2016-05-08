@@ -1,23 +1,29 @@
 package com.reid.REID
 
-import groovy.transform.EqualsAndHashCode
-import groovy.transform.ToString
-
-@EqualsAndHashCode(includes = 'username')
-@ToString(includes = 'username', includeNames = true, includePackage = false)
-class User implements Serializable {
-
-    private static final long serialVersionUID = 1
+class User {
 
     transient springSecurityService
 
     String username
     String password
+    boolean enabled = true
+    boolean accountExpired
+    boolean accountLocked
+    boolean passwordExpired
 
-    static hasMany = [firmas: Firma]
+    static transients = ['springSecurityService']
+
+    static constraints = {
+        username blank: false, unique: true
+        password blank: false
+    }
+
+    static mapping = {
+        password column: '`password`'
+    }
 
     Set<Role> getAuthorities() {
-        UserRole.findAllByUser(this)*.role
+        UserRole.findAllByUser(this).collect { it.role }
     }
 
     def beforeInsert() {
@@ -32,16 +38,5 @@ class User implements Serializable {
 
     protected void encodePassword() {
         password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
-    }
-
-    static transients = ['springSecurityService']
-
-    static constraints = {
-        username blank: false, unique: true
-        password blank: false
-    }
-
-    static mapping = {
-        password column: '`password`'
     }
 }
