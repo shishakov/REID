@@ -93,6 +93,13 @@
           <root url="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/3.2.3.RELEASE/spring-security-web-3.2.3.RELEASE.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/3.2.3.RELEASE/spring-security-core-3.2.3.RELEASE.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-spellchecker/2.4.1/lucene-spellchecker-2.4.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-snowball/2.4.1/lucene-snowball-2.4.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-queries/2.4.1/lucene-queries-2.4.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-analyzers/2.4.1/lucene-analyzers-2.4.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-highlighter/2.4.1/lucene-highlighter-2.4.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-core/2.4.1/lucene-core-2.4.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/compass-project/compass/2.2.1/compass-2.2.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>

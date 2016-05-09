@@ -3,11 +3,20 @@
 <html>
 <head>
     <meta name="layout" content="main">
+
     <g:set var="entityName" value="${message(code: 'firma.label', default: 'Firma')}" />
     <title><g:message code="default.list.label" args="[entityName]" /></title>
+    <g:javascript library="jquery"/>
 
 </head>
 <body>
+<div id="echoBox">
+    importing user:
+</div>
+
+<g:remoteField controller="firma" action="shout" update="echoBox" name="field" oncomplete="showSpinner(true)"/>
+<br><br>
+
 <a href="#list-firma" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <div class="nav" role="navigation">
     <ul>
@@ -21,8 +30,10 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-
-
+    <g:form action="search" method="get">
+        <g:textField name="q" value="${params.q}"/>
+        <g:submitButton name="search"/>
+    </g:form>
     <table>
         <thead>
         <tr>

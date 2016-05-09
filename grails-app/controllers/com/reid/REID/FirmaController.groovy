@@ -3,6 +3,7 @@ package com.reid.REID
 
 import grails.plugin.geocode.Point
 import grails.plugin.springsecurity.annotation.Secured
+import org.compass.core.engine.SearchEngineQueryParseException
 
 import java.security.MessageDigest
 
@@ -14,6 +15,11 @@ import grails.transaction.Transactional
 
 class FirmaController {
 
+    static String WILDCARD = "*"
+    def searchableService
+
+    def springSecurityService
+
     static scaffold = Firma
 
     GeocodingService geocodingService
@@ -24,9 +30,38 @@ class FirmaController {
         redirect(action: "list", params: params)
     }
 
+    def shout() {
+        def count = User.countByImportRun(true)
+        render "import ${count} user(s)"
+    }
+
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Firma.list(params), model: [firmaInstanceCount: Firma.count()]
+    }
+
+    def search = {
+
+        if (!params.q?.trim()) {
+            return [:]
+        }
+        try {
+            String searchTerm = WILDCARD+ params.q + WILDCARD
+            return [searchResult: Firma.search(searchTerm, params)]
+        } catch (SearchEngineQueryParseException ex) {
+            return [parseException: true]
+        }
+    }
+    def indexAll = {
+        Thread.start {
+            searchableService.index()
+        }
+        render("bulk index started in a background thread")
+    }
+
+    def unindexAll = {
+        searchableService.unindex()
+        render("unindexAll done")
     }
 
     def show(Firma firmaInstance) {
@@ -50,6 +85,8 @@ class FirmaController {
         def file = request.getFile('file')
         def allLines = file.inputStream.toCsvReader().readAll()
         def list = allLines.collect { it }
+        def user = User.get(springSecurityService.principal.id)
+        boolean importUser = false
         for (int r = 0; r < list.size(); r++) {
             String rows = list[r][0] + list[r][1] + list[r][2] + list[r][3]
             def firmDB = Firma.findByE_mail(list[r][1])
@@ -64,9 +101,9 @@ class FirmaController {
                     firmDB.lantitudeS = locations[0].getLatitude().toString()
                     firmDB.longitudeD = locations[0].getLongitude().toString()
                     firmDB.hash_record = rowsHash
-                    def user = User.get(1)
                     firmDB.user = user
                     firmDB.save(flush: true)
+                    importUser = true
                 }
             } else {
                 def rowsHash = getHashCode(rows)
@@ -79,10 +116,15 @@ class FirmaController {
                         lantitudeS: locations[0].getLatitude().toString(),
                         longitudeD: locations[0].getLongitude().toString(),
                         hash_record: rowsHash)
-                def user = User.get(1)
                 firm.user = user
                 firm.save(flush: true)
+                importUser = true
             }
+        }
+
+        if(importUser){
+            user.importRun=true
+            user.save(flush: true)
         }
 
         //GEO

@@ -7,6 +7,7 @@ class User {
     String username
     String password
     boolean enabled = true
+    boolean importRun = false
     boolean accountExpired
     boolean accountLocked
     boolean passwordExpired

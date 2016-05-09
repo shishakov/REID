@@ -97,5 +97,7 @@ grails.project.dependency.resolution = {
         //Spring Security Core
         compile ':spring-security-core:2.0-RC4'
 
+        compile "org.grails.plugins:searchable:0.6.9"
+
     }
 }

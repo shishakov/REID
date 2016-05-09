@@ -6,6 +6,8 @@ import groovy.transform.ToString
 @ToString(cache = true, includeNames = true, includePackage = false)
 class Firma implements Serializable  {
 
+    static searchable = true
+
     String name_firm
     String e_mail
     String addressS

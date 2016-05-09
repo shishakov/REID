@@ -11,6 +11,7 @@
           <root url="file://$MODULE_DIR$/target/work/plugins/h2-0.2.6/grails-app/views" relative="/" />
           <root url="file://$MODULE_DIR$/target/work/plugins/spring-security-core-2.0-RC4/grails-app/views" relative="/" />
           <root url="file://$MODULE_DIR$/target/work/plugins/csv-0.3.1/web-app" relative="/" />
+          <root url="file://$MODULE_DIR$/target/work/plugins/searchable-0.6.9/grails-app/views" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -63,6 +64,12 @@
     <content url="file://$MODULE_DIR$/target/work/plugins/scaffolding-2.0.3">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/scaffolding-2.0.3/src/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/scaffolding-2.0.3/src/groovy" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/target/work/plugins/searchable-0.6.9">
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/searchable-0.6.9/src/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/searchable-0.6.9/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/searchable-0.6.9/grails-app/controllers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/searchable-0.6.9/grails-app/services" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/target/work/plugins/spring-security-core-2.0-RC4">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/spring-security-core-2.0-RC4/src/java" isTestSource="false" />
