@@ -15,7 +15,7 @@ class BootStrap {
         UserRole.create userUserEug, userRole
         UserRole.create adminUser, adminRole
 
-        def firmOne = Firma.findOrSaveWhere(name_firm: 'WalmartR', e_mail:'walmart@gmail.comR', addressS: 'ул. Сосновый бор 6 Минск Беларусь', indexX: '220465', lantitudeS: '220465', longitudeD: '220465', hash_record: '220465')
+        def firmOne = Firma.findOrSaveWhere(name_firm: 'WalmartR', e_mail:'walmart@gmail.comR', addressS: 'ул. Сосновый бор 6 Минск Беларусь', indexX: '220465', lantitudeS: '53.964051', longitudeD: '27.595250', hash_record: '220465')
         firmOne.user = userUser
         firmOne.save(flush: true)
     }

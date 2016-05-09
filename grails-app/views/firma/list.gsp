@@ -68,5 +68,56 @@
         <g:paginate total="${firmaInstanceCount ?: 0}" />
     </div>
 </div>
+<div >
+    <g:link class="btn btn-primary btn-md" role="button" action="create"><g:message code="default.new.label"
+                                                                                    args="[entityName]"/></g:link>
+</div>
+</div>
+<div class="col-md-7">
+    <div id="map"  style="width:100%; height:450px">
+    </div>
+
+    <script>
+
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -34.397, lng: 150.644},
+                zoom: 8
+            });
+
+            var bounds = new google.maps.LatLngBounds();
+
+            var latlng;
+            <g:each in="${firmaInstanceList}" var="location">
+            if(${location.lantitudeS}&&${location.longitudeD}) {
+                latlng = new google.maps.LatLng(${location.lantitudeS}, ${location.longitudeD});
+                var marker${location.id} = new google.maps.Marker({
+                    position: latlng,
+                    map: map
+                });
+
+                var contentString${location.id} = '<h3>${location.name_firm}</h3><p>${location.e_mail}</p><p>${location.addressS} ${location.indexX}</p>';
+
+                var infowindow${location.id} = new google.maps.InfoWindow({
+                    content: contentString${location.id}
+                });
+
+                marker${location.id}.addListener('click', function() {
+                    infowindow${location.id}.open(map, marker${location.id});
+                });
+
+                bounds.extend(latlng);
+            }
+            </g:each>
+            map.fitBounds(bounds);
+        }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlsVTMy_gNOBGGshqhMMDOWXQYnJGC8vU&callback=initMap"
+            async defer></script>
+</div>
+</div>
+
 </body>
 </html>
